@@ -5,7 +5,6 @@ import JSZip from "jszip";
 import "leaflet/dist/leaflet.css";
 import axios from "axios";
 import * as L from "leaflet";
-import api from '../../Api'; // Import the Axios instance
 import "./stepper.css";
 
 const Stepper = () => {
