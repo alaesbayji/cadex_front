@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './navbar.scss';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import LanguageIcon from '@mui/icons-material/Language';
+
 import alae from '../../images/alae.jpg'; // Default image if profile photo is not available
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate pour la navigation

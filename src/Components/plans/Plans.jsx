@@ -2,7 +2,6 @@ import "./plans.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import api from "../../Api"; // Import the Axios instance
 

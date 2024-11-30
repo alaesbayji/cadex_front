@@ -1,12 +1,10 @@
 import Homes from "./pages/home/Homes";
 import List from "./pages/listusers/List";
 import Login from "./pages/login/Login";
-import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Single from "./pages/single/Single";
 import UserPlans from "./pages/historique/UserPlans";
 import New from "./pages/new/New";
-import { userInputs } from "./formsource";
 import ListPlans from "./pages/listplans/ListPlans";
 import Generate from "./pages/genererplan/Generate";
 import Profile from "./pages/profile/Profile";

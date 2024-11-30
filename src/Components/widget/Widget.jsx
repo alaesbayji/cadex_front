@@ -1,9 +1,7 @@
 import './widget.scss';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import BackupTableOutlinedIcon from '@mui/icons-material/BackupTableOutlined';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import api from '../../Api'; // Import the Axios instance
 
 const Widget = ({ type }) => {
@@ -60,7 +58,6 @@ const Widget = ({ type }) => {
     }
   }, [type]);
 
-  const diff = 20; // Static percentage change (could be dynamic if needed)
 
   return (
     <div className='widget'>

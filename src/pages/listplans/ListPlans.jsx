@@ -1,7 +1,6 @@
 import './listplans.scss'
 import Sidebar from '../../Components/Sidebar/Sidebar'
 import Navbar from '../../Components/Navbar/Navbar'
-import Datatable from '../../Components/datatable/Datatable'
 import Plans from '../../Components/plans/Plans'
 
 const ListPlans = () => {

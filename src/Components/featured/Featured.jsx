@@ -2,16 +2,14 @@ import './featured.scss';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import "react-circular-progressbar/dist/styles.css";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import api from '../../Api'; // Import the Axios instance
 
 const Featured = () => {
-  const [totalPlans, setTotalPlans] = useState(0);
+  const [ setTotalPlans] = useState(0);
   const [plansToday, setPlansToday] = useState(0);
-  const [target, setTarget] = useState(100); // Objectif à 100 plans
+  const [target] = useState(100); // Objectif à 100 plans
   const [lastDay, setLastDay] = useState(0);
   const [lastWeek, setLastWeek] = useState(0);
   const [lastMonth, setLastMonth] = useState(0);

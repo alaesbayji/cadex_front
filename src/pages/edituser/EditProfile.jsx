@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
@@ -33,7 +32,6 @@ const EditProfile = ({ title }) => {
 
   // Récupérer les données de l'utilisateur lors du montage du composant
   useEffect(() => {
-    const userId = userDataFromState || id; // Utiliser l'ID du state ou celui de l'URL
 
     const fetchUserData = async () => {
       try {
@@ -98,7 +96,6 @@ const EditProfile = ({ title }) => {
     }
 
     try {
-      const userId = userDataFromState || id; // Utiliser l'ID du state ou celui de l'URL
 
       const response = await api.put(`http://127.0.0.1:8000/cadex/users/self/update/`, data, {
         headers: {

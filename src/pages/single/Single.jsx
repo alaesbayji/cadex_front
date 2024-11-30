@@ -2,7 +2,6 @@ import UserChart from "../../Components/chart/UserChart";
 import Navbar from "../../Components/Navbar/Navbar";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import UserPlans from "../../Components/plans/UserPlans";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import "./single.scss";
 import { Button } from "@mui/material";
