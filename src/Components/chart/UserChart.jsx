@@ -48,7 +48,7 @@ const UserChart = ({ aspect, title, userId }) => {
     };
 
     fetchData();
-  }, [timePeriod]); // Recharger les données lorsqu'on change de période
+  }, [timePeriod,userId]); // Recharger les données lorsqu'on change de période
 
   return (
     <div className="chart">

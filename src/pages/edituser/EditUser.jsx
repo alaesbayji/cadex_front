@@ -62,7 +62,7 @@ const EditUser = ({ title }) => {
     };
 
     fetchUserData();
-  }, [id]);
+  }, [userDataFromState,id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

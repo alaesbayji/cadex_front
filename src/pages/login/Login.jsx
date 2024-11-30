@@ -63,7 +63,7 @@ const Login = () => {
             <label>
               <input type="checkbox" /> Remember me
             </label>
-            <a href="#">Forgot Password?</a>
+            <a href="/login">Forgot Password?</a>
           </div>
           <button type="submit" className="auth-button">Sign In</button>
           {error && <p className="error-message">{error}</p>}

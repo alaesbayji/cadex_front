@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import './edituser.scss';
 import api from '../../Api'; // Import the Axios instance
 
@@ -9,8 +9,6 @@ const EditProfile = ({ title }) => {
   const [file, setFile] = useState(null);
   const navigate = useNavigate(); // Hook for navigation
   const { id } = useParams(); // Récupérer l'ID de l'utilisateur depuis l'URL
-  const location = useLocation();
-  const userDataFromState = location.state?.id; // Récupérer l'ID envoyé par state
   const authToken = localStorage.getItem('access');
 
   const [formData, setFormData] = useState({

@@ -55,7 +55,7 @@ setLastDay(plans.filter(plan => {
     };
 
     fetchPlansData();
-  }, []);
+  }, [setTotalPlans]);
 
   return (
     <div className='featured'>
