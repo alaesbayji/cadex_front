@@ -1,0 +1,101 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "Snow",
+      "matricule": 172,
+      "email": "1snow@gmail.com",
+      "phone": "0694370036",
+      "fonction": "DSF",
+      "direction": "direction central",
+      "bureau": "IT",
+      "role": "admin",
+      "photo": "C:/Users/alaes/Desktop/cadex_front/src/images/test.png"
+    }
+  ],
+  "plans": [
+    {
+      "id": "1",
+      "id_plan": 1,
+      "userId": 1,
+      "username": "alae",
+      "Nicad": "00121",
+      "date": "2024-01-01",
+      "id_couche": 785,
+      "Action": "Generate"
+    },
+    {
+      "id": "2",
+      "id_plan": 2,
+      "userId": 2,
+      "username": "karim",
+      "Nicad": "00122",
+      "date": "2024-03-02",
+      "id_couche": 786,
+      "Action": "Generate"
+    },
+    {
+      "id": "3",
+      "id_plan": 3,
+      "userId": 3,
+      "username": "nour",
+      "Nicad": "00123",
+      "date": "2024-11-08",
+      "id_couche": 787,
+      "Action": "Generate"
+    },
+    {
+      "id": "4",
+      "id_plan": 4,
+      "userId": 4,
+      "username": "amine",
+      "Nicad": "00123",
+      "date": "2024-08-08",
+      "id_couche": 787,
+      "Action": "Generate"
+    },
+    {
+      "id": "5",
+      "id_plan": 4,
+      "userId": 4,
+      "username": "amine",
+      "Nicad": "00123",
+      "date": "2024-08-08",
+      "id_couche": 787,
+      "Action": "Generate"
+    },
+    {
+      "id": "6",
+      "id_plan": 4,
+      "userId": 4,
+      "username": "amine",
+      "Nicad": "00123",
+      "date": "2024-08-08",
+      "id_couche": 787,
+      "Action": "Generate"
+    },
+    {
+      "id": "7",
+      "id_plan": 4,
+      "userId": 4,
+      "username": "amine",
+      "Nicad": "00123",
+      "date": "2024-11-08",
+      "id_couche": 787,
+      "Action": "Generate"
+    }
+  ]
+,
+  "login": [
+    {
+      "id": 1,
+      "email": "user@example.com",
+      "password": "password123"
+    },
+    {
+      "id": 2,
+      "email": "cadex@example.com",
+      "password": "123"
+    }
+  ]
+}

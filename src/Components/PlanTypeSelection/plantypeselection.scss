@@ -1,0 +1,51 @@
+/* Container pour centrer tout le contenu */
+.plan-type-selection-container {
+    display: flex;
+    flex-direction: column; /* Par défaut, les éléments seront empilés verticalement */
+    align-items: center;
+    margin: 20px;
+  }
+  
+  /* Style du titre */
+  .plan-type-selection-container h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Style du select (choix de type de plan) */
+  .plan-type-selection-container select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  /* Style pour aligner les éléments select et input sur la même ligne si besoin */
+  .plan-type-selection-row {
+    display: flex;
+    justify-content: center; /* Centre les éléments horizontalement */
+    gap: 20px; /* Espacement entre les éléments */
+    margin-top: 20px; /* Espacement au-dessus */
+  }
+  
+  /* Optionnel: Ajouter un style pour les boutons si vous en avez dans ce composant */
+  .plan-type-selection-container .btn {
+    padding: 10px 20px;
+    background-color: #B69D3F;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 200px;
+  }
+  
+  .plan-type-selection-container .btn:hover {
+    background-color: #9c8034;
+  }
+  

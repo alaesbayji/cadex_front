@@ -1,0 +1,248 @@
+body {
+  font-family: sans-serif;
+}
+
+.stepper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.step-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  margin-right: 20px;
+  z-index: 2;
+}
+
+.step-name {
+  font-size: 14px;
+}
+
+.active .step-number {
+  background-color: #B69D3F;
+  color: #fff;
+}
+
+.complete .step-number {
+  background-color: #B69D3F;
+  color: #fff;
+}
+
+.progress-bar {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #ccc;
+  z-index: 1;
+}
+
+.progress {
+  height: 100%;
+  background-color: #B69D3F;
+  transition: width 0.2s ease;
+}
+.button-group {
+  display: flex; /* Active la mise en page flexible */
+  justify-content: center; /* Centre les éléments horizontalement */
+  align-items: center; /* Centre les éléments verticalement si nécessaire */
+  gap: 10px; /* Espace entre les boutons (facultatif) */
+  margin-top: 20px; /* Ajuste l'espacement au-dessus des boutons */
+}
+
+.btn {
+  display: flex;
+  align-items: center; /* Centrer l'icône et le texte verticalement */
+  justify-content: center; /* Centrer l'icône et le texte horizontalement */
+  padding: 10px;
+  width: 150px;
+  border: none;
+  background-color: #B69D3F;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.buttonleft {
+  margin-right: auto; 
+}
+
+.buttonright {
+  margin-left: auto; /* Pour aligner le bouton à droite */
+}
+
+/* Styles des boutons */
+.download-button,
+.generate-button {
+  padding: 10px 20px;
+  background-color: #B69D3F;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.file-selection-container {
+  display: flex;
+  flex-direction: column;  /* Par défaut, le conteneur est en colonne */
+  align-items: center; /* Centre horizontalement */
+  text-align: center;
+  margin: 20px;
+}
+
+/* Ajout d'un conteneur pour les éléments select et input sur la même ligne */
+.file-selection-row {
+  display: flex;
+  justify-content: center; /* Centre les éléments sur la même ligne */
+  gap: 20px; /* Espace entre le select et l'input */
+  margin-top: 20px; /* Espacement au-dessus */
+}
+
+/* Style du titre */
+.file-selection-container h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Style du select (choix de type de fichier) */
+.file-selection-container select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Style de l'input de fichier */
+.file-selection-container input[type="file"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px; /* Largeur de l'input */
+  cursor: pointer;
+}
+
+/* Style du texte d'explication pour Shapefile */
+.file-selection-container p {
+  font-size: 1rem;
+  color: #555;
+  margin-top: 10px;
+}
+
+/* Optionnel: Ajouter un style pour les boutons si vous en avez dans ce composant */
+.file-selection-container .btn {
+  padding: 10px 20px;
+  background-color: #B69D3F;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 200px;
+}
+
+.file-selection-container .btn:hover {
+  background-color: #9c8034;
+}
+/* Container pour centrer tout le contenu */
+.plan-type-selection-container {
+  display: flex;
+  flex-direction: column; /* Par défaut, les éléments seront empilés verticalement */
+  align-items: center;
+  margin: 20px;
+}
+
+/* Style du titre */
+.plan-type-selection-container h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Style du select (choix de type de plan) */
+.plan-type-selection-container select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Style pour aligner les éléments select et input sur la même ligne si besoin */
+.plan-type-selection-row {
+  display: flex;
+  justify-content: center; /* Centre les éléments horizontalement */
+  gap: 20px; /* Espacement entre les éléments */
+  margin-top: 20px; /* Espacement au-dessus */
+}
+
+/* Optionnel: Ajouter un style pour les boutons si vous en avez dans ce composant */
+.plan-type-selection-container .btn {
+  padding: 10px 20px;
+  background-color: #B69D3F;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 200px;
+}
+
+.plan-type-selection-container .btn:hover {
+  background-color: #9c8034;
+}
+/* Loading overlay styles */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Ensure it stays on top of the map */
+  color: white;
+  font-size: 16px;
+}
+
+.loading-spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

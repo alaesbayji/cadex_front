@@ -1,0 +1,69 @@
+/* Container pour centrer tout le contenu et aligner les éléments sur la même ligne */
+.file-selection-container {
+    display: flex;
+    flex-direction: column;  /* Par défaut, le conteneur est en colonne */
+    align-items: center; /* Centre horizontalement */
+    text-align: center;
+    margin: 20px;
+  }
+  
+  /* Ajout d'un conteneur pour les éléments select et input sur la même ligne */
+  .file-selection-row {
+    display: flex;
+    justify-content: center; /* Centre les éléments sur la même ligne */
+    gap: 20px; /* Espace entre le select et l'input */
+    margin-top: 20px; /* Espacement au-dessus */
+  }
+  
+  /* Style du titre */
+  .file-selection-container h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Style du select (choix de type de fichier) */
+  .file-selection-container select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  /* Style de l'input de fichier */
+  .file-selection-container input[type="file"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px; /* Largeur de l'input */
+    cursor: pointer;
+  }
+  
+  /* Style du texte d'explication pour Shapefile */
+  .file-selection-container p {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  /* Optionnel: Ajouter un style pour les boutons si vous en avez dans ce composant */
+  .file-selection-container .btn {
+    padding: 10px 20px;
+    background-color: #B69D3F;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 200px;
+  }
+  
+  .file-selection-container .btn:hover {
+    background-color: #9c8034;
+  }
+  
