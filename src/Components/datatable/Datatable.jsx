@@ -4,6 +4,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import api from '../../Api'; // Import the Axios instance
+import ShowAlert from "../../Components/ShowAlert";
+import ShowAlertConf from "../../Components/ShowAlertConf";
 
 const Datatable = () => {
   const [data, setData] = useState([]);
@@ -28,23 +30,42 @@ const Datatable = () => {
 
   // Delete a user
   const handleDelete = async (userData) => {
-    const confirmed = window.confirm('Are you sure you want to delete this user?');
-    if (!confirmed) return; // If the user cancels, stop the deletion
+    // Affiche une alerte de confirmation personnalisée
+    const confirmed = await new Promise((resolve) => {
+      ShowAlertConf(
+        "warning",
+        "Are you sure you want to delete this user?",
+        {
+          confirmButtonText: "Yes, delete",
+          cancelButtonText: "Cancel",
+          showCancelButton: true,
+          onConfirm: () => resolve(true),
+          onCancel: () => resolve(false),
+        }
+      );
+    });
+  
+    if (!confirmed) return; // Si l'utilisateur annule, arrêtez la suppression
+  
     try {
-      // Utilisez la même instance `api` pour la suppression
-      await api.delete(`http://127.0.0.1:8000/cadex/users/${userData.id}/delete/`); // Correct URL
-
-      // Mise à jour de l'état après la suppression
-      setData(data.filter((item) => item.id !== userData.id)); // Correct filter logic
+      // Suppression de l'utilisateur via l'API
+      await api.delete(`http://127.0.0.1:8000/cadex/users/${userData.id}/delete/`); 
+  
+      // Mise à jour de l'état après suppression
+      setData(data.filter((item) => item.id !== userData.id));
+      ShowAlert("success", "User deleted successfully!");
     } catch (error) {
       console.error("Error deleting data:", error.response?.data || error.message);
-      alert(error.message);
-      // Gestion des erreurs liées à l'accès non autorisé
+      ShowAlert("error", error.response?.data?.detail || "An error occurred while deleting the user.");
+  
+      // Redirection vers login si non autorisé
       if (error.response && error.response.status === 401) {
         navigate("/login");
       }
     }
   };
+  
+  
 
   // Function to navigate to "Single" with the data
   const handleView = (userData) => {

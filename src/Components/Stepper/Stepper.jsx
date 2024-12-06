@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css";
 import axios from "axios";
 import * as L from "leaflet";
 import "./stepper.css";
+import ShowAlert from "../ShowAlert";
 
 const Stepper = () => {
   const [geojsonData, setGeojsonData] = useState(null);
@@ -15,12 +16,13 @@ const Stepper = () => {
   const mapRef = useRef();
   const authToken = localStorage.getItem('access');
   const [planType, onPlanTypeChange] = useState(null);
+  const [abortController, setAbortController] = useState(null); // Abort controller
 
   // Fonction pour traiter l'upload ZIP et préparer les données
   const handlePrepareData = async (event) => {
     const file = event.target.files[0];
     if (!file) {
-      alert("Veuillez sélectionner un fichier ZIP.");
+      ShowAlert('error', 'Veuillez sélectionner un fichier ZIP.');
       return;
     }
 
@@ -50,61 +52,90 @@ const Stepper = () => {
       const geojson = await shp(arrayBuffer);
       if (!geojson || !geojson.features) {
         console.error("Le fichier ZIP ne contient pas de données valides.");
-        alert("Erreur : Le fichier ZIP ne contient pas de données valides.");
+        ShowAlert('error', 'Le fichier ZIP ne contient pas de données valides.');
         return;
       }
       setGeojsonData(geojson); // Afficher les données sur la carte
       setFormData(filesToUpload); // Stocker pour envoi
-      alert("Les données ont été préparées avec succès.");
+      ShowAlert('success', 'Les données ont été chargées avec succès !');
+
     } catch (error) {
       console.error("Erreur lors du traitement du fichier ZIP:", error);
-      alert("Une erreur est survenue lors de la préparation des données.");
+      ShowAlert('error', 'Une erreur est survenue lors de la préparation des données.');
+
+    }
+  };
+  // Fonction pour annuler l'opération
+  const handleCancel = () => {
+    if (abortController) {
+      abortController.abort(); // Annuler la requête en cours
+      setAbortController(null);
+      setLoading(false);
+    } else {
+      ShowAlert("info", "Aucune opération en cours à annuler.");
     }
   };
 
+  // Fonction pour réinitialiser les données
+  const handleClear = () => {
+    setGeojsonData(null);
+    setSelectedPolygon(null);
+    setFormData(null);
+    onPlanTypeChange(null);
+    ShowAlert("info", "Les données ont été effacées.");
+  };
   // Fonction pour envoyer les données au backend
   const handleSendData = async () => {
     if (!selectedPolygon) {
-      alert("Veuillez sélectionner un polygone avant d'envoyer.");
+      ShowAlert("error", "Veuillez sélectionner un polygone avant d'envoyer.");
       return;
     }
-
+  
     if (!formData) {
-      alert("Veuillez importer et préparer les données avant d'envoyer.");
+      ShowAlert("error", "Veuillez importer et préparer les données avant d'envoyer.");
       return;
     }
-
-    setLoading(true); // Show loading state
-
+  
+    if (!planType || planType === "null") { // Vérifie si planType est null ou non sélectionné
+      ShowAlert("error", "Veuillez sélectionner un type de plan avant d'envoyer.");
+      return;
+    }
+  
+    setLoading(true);
+  
+    const controller = new AbortController();
+    setAbortController(controller);
+  
     try {
-      // Ajouter les métadonnées nécessaires
-      const typePlan = planType; // Remplacez par une valeur dynamique si nécessaire
-      const idParcelle = selectedPolygon.properties.nicad;
-      formData.append("typePlan", typePlan);
-      formData.append("idParcelle", idParcelle);
-
-      // Envoyer au backend
+      formData.append("typePlan", planType);
+      formData.append("idParcelle", selectedPolygon.properties.nicad);
+  
       const response = await axios.post(
         "http://127.0.0.1:8000/cadex/upload-fichier/",
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            "Authorization": `Bearer ${authToken}`
+            Authorization: `Bearer ${authToken}`,
           },
+          signal: controller.signal,
         }
       );
-
       console.log("Réponse du backend:", response.data);
-      alert("Les données ont été envoyées avec succès.");
+ 
+      ShowAlert("success", "Les données ont été envoyées avec succès !");
     } catch (error) {
-      console.error("Erreur lors de l'envoi au backend:", error);
-      alert("Une erreur est survenue lors de l'envoi des données.");
+      if (axios.isCancel(error)) {
+        ShowAlert("info", "L'envoi a été annulé.");
+      } else {
+        ShowAlert("error", "Une erreur est survenue lors de l'envoi des données.");
+      }
     } finally {
-      setLoading(false); // Hide loading state once the request is completed
+      setLoading(false);
+      setAbortController(null);
     }
   };
-
+  
   // Gestion du clic sur un polygone
   const handlePolygonClick = (feature) => {
     setSelectedPolygon(feature);
@@ -127,14 +158,15 @@ const Stepper = () => {
         <div className="plan-type-selection-container">
           <h3>Select the type of plan</h3>
           <select
-            value={planType}
-            onChange={(e) => onPlanTypeChange(e.target.value)}
-          >
-            <option value="">Select plan type</option>
-            <option value="Plan A">Plan CIC</option>
-            <option value="Plan B">Amorcellement</option>
-            <option value="Plan C">Délimitation</option>
-          </select>
+  value={planType}
+  onChange={(e) => onPlanTypeChange(e.target.value)}
+>
+  <option value="null">Select plan type</option>
+  <option value="Plan A">Plan CIC</option>
+  <option value="Plan B">Amorcellement</option>
+  <option value="Plan C">Délimitation</option>
+</select>
+
         </div>
       </div>
 
@@ -187,12 +219,16 @@ const Stepper = () => {
     
 
       <div className="button-group">
-        <button
-          className="btn download-button"
-          onClick={handleSendData}
-        >
+      <button className="btn download-button" onClick={handleSendData}>
           Envoyer les Données
         </button>
+        <button className="btn cancel-button" onClick={handleCancel}>
+          Annuler
+        </button>
+        <button className="btn clear-button" onClick={handleClear}>
+          Effacer
+        </button>
+
       </div>
     </>
   );

@@ -4,6 +4,7 @@ import Navbar from "../../Components/Navbar/Navbar";
 import { useParams, useNavigate } from "react-router-dom";
 import './edituser.scss';
 import api from '../../Api'; // Import the Axios instance
+import ShowAlert from "../../Components/ShowAlert";
 
 const EditProfile = ({ title }) => {
   const [file, setFile] = useState(null);
@@ -50,7 +51,8 @@ const EditProfile = ({ title }) => {
         });
       } catch (error) {
         console.error("Erreur lors de la récupération des données de l'utilisateur :", error);
-        alert(error)
+        ShowAlert('error', "Erreur lors de la récupération des données de l'utilisateur");
+
       }
     };
 
@@ -71,7 +73,7 @@ const EditProfile = ({ title }) => {
 
     // Validation des mots de passe
     if (formData.password !== confirmPassword) {
-      alert("Les mots de passe ne correspondent pas !");
+      ShowAlert('error', "Les mots de passe ne correspondent pas !");
       return;
     }
 
@@ -104,11 +106,13 @@ const EditProfile = ({ title }) => {
       });
 
       console.log("Utilisateur mis à jour avec succès :", response.data);
-      alert("Utilisateur mis à jour avec succès !");
+      ShowAlert('success', "Utilisateur mis à jour avec succès !");
+
       navigate('/profile'); // Redirection vers la liste des utilisateurs après la mise à jour
     } catch (error) {
       console.error("Erreur lors de la mise à jour de l'utilisateur :", error.response?.data || error.message);
-      alert("Erreur lors de la mise à jour de l'utilisateur !");
+      ShowAlert('error', "Erreur lors de la mise à jour de l'utilisateur !");
+
     }
   };
 

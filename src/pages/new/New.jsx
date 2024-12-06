@@ -4,6 +4,7 @@ import Sidebar from "../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import {  useNavigate } from 'react-router-dom';
 import './new.scss'
+import ShowAlert from "../../Components/ShowAlert";
 
 const New = ({ title }) => {
   const [file, setFile] = useState(null);
@@ -38,7 +39,7 @@ const New = ({ title }) => {
 
     // Validation des mots de passe
     if (formData.password !== confirmPassword) {
-      alert("Les mots de passe ne correspondent pas !");
+      ShowAlert('error', "Les mots de passe ne correspondent pas !");
       return;
     }
 
@@ -73,11 +74,12 @@ const New = ({ title }) => {
       });
 
       console.log("Utilisateur créé avec succès :", response.data);
-      alert("Utilisateur créé avec succès !");
+      ShowAlert('success', "Utilisateur créé avec succès !");
+
       navigate('/users')
     } catch (error) {
       console.error("Erreur lors de la création de l'utilisateur :", error.response?.data || error.message);
-      alert("Erreur lors de la création de l'utilisateur !");
+      ShowAlert('error', "Erreur lors de la création de l'utilisateur !");
     }
   };
 
