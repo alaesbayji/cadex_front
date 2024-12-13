@@ -17,6 +17,7 @@ const Stepper = () => {
   const authToken = localStorage.getItem('access');
   const [planType, onPlanTypeChange] = useState(null);
   const [abortController, setAbortController] = useState(null); // Abort controller
+  const [pdfUrl, setPdfUrl] = useState(null);
 
   // Fonction pour traiter l'upload ZIP et préparer les données
   const handlePrepareData = async (event) => {
@@ -122,7 +123,8 @@ const Stepper = () => {
         }
       );
       console.log("Réponse du backend:", response.data);
- 
+      setPdfUrl(response.data.pdf_url); // Stocker l'URL du PDF
+
       ShowAlert("success", "Les données ont été envoyées avec succès !");
     } catch (error) {
       if (axios.isCancel(error)) {
@@ -219,8 +221,8 @@ const Stepper = () => {
     
 
       <div className="button-group">
-      <button className="btn download-button" onClick={handleSendData}>
-          Envoyer les Données
+      <button className="btn cancel-button" onClick={handleSendData}>
+          Generer
         </button>
         <button className="btn cancel-button" onClick={handleCancel}>
           Annuler
@@ -228,6 +230,13 @@ const Stepper = () => {
         <button className="btn clear-button" onClick={handleClear}>
           Effacer
         </button>
+        {pdfUrl && (
+  <div className="pdf-link">
+    <a href={pdfUrl} target="_blank" rel="noopener noreferrer">
+      Voir le plan généré (PDF)
+    </a>
+  </div>
+)}
 
       </div>
     </>

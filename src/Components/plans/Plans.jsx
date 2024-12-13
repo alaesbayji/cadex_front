@@ -2,28 +2,19 @@ import "./plans.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import api from "../../Api"; // Import the Axios instance
+import ShowAlert from "../../Components/ShowAlert";
+import ShowAlertConf from "../../Components/ShowAlertConf";
 
 const planColumns = [
   { field: "id", headerName: "Plan ID", width: 200 },
-  { field: "username", headerName: "Username", width: 250 },
-  { field: "idParcelle", headerName: "Nicad", width: 150 }, // Utilisation de 'idParcelle' à la place de 'idparcelle'
-  { field: "dateCreation", headerName: "Date", width: 130 }, // Utilisation de 'dateCreation' pour la date
+  { field: "matricule", headerName: "matricule", width: 250 },
+  { 
+    field: "idParcelle", 
+    headerName: "Nicad", 
+    width: 150 },  { field: "dateCreation", headerName: "Date", width: 130 }, // Utilisation de 'dateCreation' pour la date
   { field: "typePlan", headerName: "Type Plan", width: 120 }, // Utilisation de 'typePlan' à la place de 'id_couche'
-  {
-    field: "action",
-    headerName: "Action",
-    width: 150,
-    renderCell: (params) => (
-      <Button
-        className="generateButton"
-        onClick={() => console.log(`Generating plan for ${params.row.username}`)}
-      >Generate
-        {params.row.Action}
-      </Button>
-    ),
-  },
+
 ];
 
 const Plans = () => {
@@ -39,16 +30,44 @@ const Plans = () => {
         console.error("Error fetching data:", error);
       }
     };
-    fetchData();
-  }, []);
+ 
+  fetchData();
+}, []);
 
+// Gérer la redirection au clic sur "Generate"
+const handleGenerate = (row) => {
+  const { typePlan, idParcelle ,matricule} = row;
+  const formattedIdParcelle = String(idParcelle).padStart(16, "0");
+
+  const url = `http://127.0.0.1:8000/media/plans/${matricule}/${matricule}_${typePlan}_${formattedIdParcelle}.pdf`;
+  window.open(url, "_blank");
+};
   // Supprimer un plan
-  const handleDelete = async (id_plan) => {
+  const handleDelete = async (id) => {
+    const confirmed = await new Promise((resolve) => {
+      ShowAlertConf(
+        "warning",
+        "Are you sure you want to delete this Plan?",
+        {
+          confirmButtonText: "Yes, delete",
+          cancelButtonText: "Cancel",
+          showCancelButton: true,
+          onConfirm: () => resolve(true),
+          onCancel: () => resolve(false),
+        }
+      );
+    });
+  
+    if (!confirmed) return; // Si l'utilisateur annule, arrêtez la suppression
     try {
-      await axios.delete(`http://localhost:3001/plans/${id_plan}`);
-      setData(data.filter((item) => item.id_plan !== id_plan));
+      await api.delete(`http://127.0.0.1:8000/cadex/plans/${id}/delete`);
+      setData((prevData) => prevData.filter((item) => item.id !== id));
+      ShowAlert("success", "Plan deleted successfully!");
+
     } catch (error) {
       console.error("Error deleting data:", error);
+      ShowAlert("error", error.response?.data?.detail || "An error occurred while deleting the user.");
+
     }
   };
 
@@ -68,10 +87,23 @@ const Plans = () => {
             width: 100,
             renderCell: (params) => (
               <Button
-                color="error"
-                onClick={() => handleDelete(params.row.id)}
+              color="error"
+              onClick={() => handleDelete(params.row.id)}
+              
+            >
+              Supprimer
+            </Button>
+            ),
+          }, {
+            field: "action",
+            headerName: "Action",
+            width: 150,
+            renderCell: (params) => (
+              <Button
+                className="generateButton"
+                onClick={() => handleGenerate(params.row)}
               >
-                Supprimer
+                Generate
               </Button>
             ),
           },
