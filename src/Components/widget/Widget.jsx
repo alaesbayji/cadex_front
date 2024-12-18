@@ -33,7 +33,7 @@ const Widget = ({ type }) => {
     switch (type) {
       case 'users':
         setData({
-          title: 'USERS',
+          title: 'Utilisateurs',
           isMoney: false,
           link: 'see all users',
           icon: <PersonOutlineOutlinedIcon className='icon' style={{

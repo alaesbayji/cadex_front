@@ -284,8 +284,8 @@ alt="User Profile"
                   required
                 >
                    <option value="">Choisissez un bureau</option>
-                   <option value="bureau1">Bureau 1</option>
-                  <option value="bureau2">Bureau 2</option>
+                   <option value="Bureau 1">Bureau 1</option>
+                  <option value="Bureau 2">Bureau 2</option>
                 </select>
               </div>
 

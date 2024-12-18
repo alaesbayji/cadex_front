@@ -16,14 +16,8 @@ const EditProfile = ({ title }) => {
     nom: "",
     prenom: "",
     username: "",
-    matricule: "",
     phone: "",
-    email: "",
     password: "",
-    role: "",
-    fonction: "",
-    direction: "",
-    bureau: "",
     profile:""
   });
 
@@ -39,14 +33,8 @@ const EditProfile = ({ title }) => {
           nom: response.data.nom,
           prenom: response.data.prenom,
           username: response.data.username,
-          matricule: response.data.matricule,
           phone: response.data.telephone,
-          email: response.data.email,
-          password: "", // ne pas afficher le mot de passe
-          role: response.data.role,
-          fonction: response.data.fonction,
-          direction: response.data.direction,
-          bureau: response.data.bureau,
+          password: "", // ne pas afficher le mot de passe        
           profile:response.data.profile_photo
         });
       } catch (error) {
@@ -82,13 +70,8 @@ const EditProfile = ({ title }) => {
     data.append("nom", formData.nom);
     data.append("prenom", formData.prenom);
     data.append("username", formData.username);
-    data.append("matricule", formData.matricule);
     data.append("telephone", formData.phone);
-    data.append("email", formData.email);
     data.append("password", formData.password);
-    data.append("role", formData.role);
-    data.append("fonction", formData.fonction);
-    data.append("direction", formData.direction);
     data.append("bureau", formData.bureau);
 
     if (file) {
@@ -171,17 +154,7 @@ const EditProfile = ({ title }) => {
                 />
               </div>
 
-              <div className="formInput">
-                <label>Matricule</label>
-                <input
-                  type="text"
-                  name="matricule"
-                  placeholder="Matricule"
-                  value={formData.matricule}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+            
 
               <div className="formInput">
                 <label>Téléphone</label>
@@ -195,17 +168,7 @@ const EditProfile = ({ title }) => {
                 />
               </div>
 
-              <div className="formInput">
-                <label>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+             
 
               <div className="formInput">
                 <label>Mot de passe</label>
@@ -230,61 +193,7 @@ const EditProfile = ({ title }) => {
                 />
               </div>
 
-              <div className="formInput">
-                <label>Rôle</label>
-                <select
-                  name="role"
-                  value={formData.role}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Choisissez un rôle</option>
-                  <option value="admin">Admin</option>
-                  <option value="user">User</option>
-                </select>
-              </div>
-
-              <div className="formInput">
-                <label>Fonction</label>
-                <select
-                  name="fonction"
-                  value={formData.fonction}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Choisissez une fonction</option>
-                  <option value="fonction1">Fonction 1</option>
-                  <option value="fonction2">Fonction 2</option>
-                </select>
-              </div>
-
-              <div className="formInput">
-                <label>Direction</label>
-                <select
-                  name="direction"
-                  value={formData.direction}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Choisissez une direction</option>
-                  <option value="direction1">Direction 1</option>
-                  <option value="direction2">Direction 2</option>
-                </select>
-              </div>
-
-              <div className="formInput">
-                <label>Bureau</label>
-                <select
-                  name="bureau"
-                  value={formData.bureau}
-                  onChange={handleChange}
-                  required
-                >
-                   <option value="">Choisissez un bureau</option>
-                  <option value="Bureau 1">Bureau  1</option>
-                  <option value="Bureau 2">Bureau 2</option>
-                </select>
-              </div>
+              
 
               <div className="formInput">
                 <label>Photo de profil</label>

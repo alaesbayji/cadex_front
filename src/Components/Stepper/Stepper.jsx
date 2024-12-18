@@ -7,8 +7,8 @@ import axios from "axios";
 import * as L from "leaflet";
 import "./stepper.css";
 import ShowAlert from "../ShowAlert";
-
-const Stepper = () => {
+import ShareIcon from '@mui/icons-material/Share';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';const Stepper = () => {
   const [geojsonData, setGeojsonData] = useState(null);
   const [selectedPolygon, setSelectedPolygon] = useState(null);
   const [formData, setFormData] = useState(null); // Stockage des données pour envoi
@@ -147,23 +147,24 @@ const Stepper = () => {
   useEffect(() => {
     if (geojsonData && mapRef.current) {
       const bounds = L.geoJSON(geojsonData).getBounds();
-      mapRef.current.fitBounds(bounds);
+      mapRef.current.fitBounds(bounds); // Ajuste la carte aux limites du GeoJSON
     }
   }, [geojsonData]);
+
 
   return (
     <>
       <div className="file-selection-container">
-        <h3>Import File</h3>
+        <h3>Importer Votre Fichier</h3>
         <input type="file" onChange={handlePrepareData} accept=".zip" />
 
         <div className="plan-type-selection-container">
-          <h3>Select the type of plan</h3>
+          <h3>Veuillez Selectionnez le type du Plan</h3>
           <select
   value={planType}
   onChange={(e) => onPlanTypeChange(e.target.value)}
 >
-  <option value="null">Select plan type</option>
+  <option value="null">Veuillez Selectionnez le type du Plan</option>
   <option value="Plan A">Plan CIC</option>
   <option value="Plan B">Amorcellement</option>
   <option value="Plan C">Délimitation</option>
@@ -231,12 +232,19 @@ const Stepper = () => {
           Effacer
         </button>
         {pdfUrl && (
-  <div className="pdf-link">
-    <a href={pdfUrl} target="_blank" rel="noopener noreferrer">
-      Voir le plan généré (PDF)
-    </a>
-  </div>
-)}
+    <>
+      <div className="pdf-link">
+        <a href={pdfUrl} target="_blank" rel="noopener noreferrer">
+          <RemoveRedEyeIcon /> Voir le Plan
+        </a>
+      </div>
+
+      <div className="share-options">
+          <a href={`mailto:?subject=PDF Plan&body=Voici le lien du plan généré: ${pdfUrl}`} target="_blank" rel="noopener noreferrer">
+          <ShareIcon /> Partager         </a>
+      </div>
+    </>
+  )}
 
       </div>
     </>
