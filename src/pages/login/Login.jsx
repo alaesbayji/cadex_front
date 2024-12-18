@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './login.scss';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../images/Logo.png'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -39,11 +40,10 @@ const Login = () => {
     <div className="auth-container">
       <div className="login-section">
         <div className="top">
-          <span className="logo">Cadex</span>
+        <img src={logo} alt="logo"></img>
         </div>
-        <h2>Sign in to Account</h2>
-       
-        <p> use your email account</p>
+        <span className="logo">Sign in to Account</span>
+
         <form className="sign-in-form" onSubmit={handleLogin}>
           <input
             type="email"

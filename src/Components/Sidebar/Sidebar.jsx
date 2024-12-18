@@ -9,7 +9,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import logo from '../../images/Logo.png'
 const Sidebar = () => {
   const [userRole, setUserRole] = useState(null); // Stocke le rôle de l'utilisateur
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ const Sidebar = () => {
     <div className='sidebar'>
       <div className='top'>
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className='logo'>Cadex</span>
+        <img src={logo}                   alt="logo"></img>
         </Link>
       </div>
       <hr />
@@ -79,7 +79,7 @@ const Sidebar = () => {
               <Link to="/dashboard" style={{ textDecoration: "none" }}>
                 <li>
                   <DashboardIcon className="icon" />
-                  <span>Tableau de Board</span>
+                  <span>Tableau de Bord</span>
                 </li>
               </Link>
               <Link to="/users" style={{ textDecoration: "none" }}>
