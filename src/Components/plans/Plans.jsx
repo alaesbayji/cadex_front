@@ -34,13 +34,19 @@ const Plans = () => {
   fetchData();
 }, []);
 
-// Gérer la redirection au clic sur "Generate"
-const handleGenerate = (row) => {
-  const { typePlan, idParcelle ,matricule} = row;
-  const formattedIdParcelle = String(idParcelle).padStart(16, "0");
+const getPdfUrlByPlanId = (planId) => {
+  if (!data) return null;
+  const plan = data.find((plan) => plan.id === planId);
+  return plan ? plan.pdf_url : null;
+};
 
-  const url = `http://127.0.0.1:8000/media/plans/${matricule}/${matricule}_${typePlan}_${formattedIdParcelle}.pdf`;
-  window.open(url, "_blank");
+const handleViewPdf = (planId) => {
+  const pdfUrl = getPdfUrlByPlanId(planId);
+  if (pdfUrl) {
+    window.open(pdfUrl, "_blank");
+  } else {
+    console.error("PDF URL non trouvé pour le plan ID :", planId);
+  }
 };
   // Supprimer un plan
   const handleDelete = async (id) => {
@@ -101,7 +107,7 @@ const handleGenerate = (row) => {
             renderCell: (params) => (
               <Button
                 className="generateButton"
-                onClick={() => handleGenerate(params.row)}
+                onClick={() =>  handleViewPdf(params.id)}                
               >
                 Generate
               </Button>

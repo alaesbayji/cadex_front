@@ -15,7 +15,6 @@ const planColumns = [
 const Userplans = ({ userId }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [matricule, setMatricule] = useState("");
 
   // Charger les plans et le matricule de l'utilisateur
   useEffect(() => {
@@ -40,33 +39,25 @@ const Userplans = ({ userId }) => {
       }
     };
 
-    const fetchMatricule = async () => {
-      try {
-        const response = await api.get(`http://127.0.0.1:8000/cadex/users/${userId}`);
-        setMatricule(response.data.matricule);
-        console.log("Matricule récupéré :", response.data.matricule);
-      } catch (error) {
-        console.error("Erreur lors de la récupération du matricule :", error);
-      }
-    };
+   
 
     fetchPlans();
-    fetchMatricule();
   }, [userId]);
-
-  const handleGenerate = (row) => {
-    if (!matricule) {
-      console.error("Matricule non défini !");
-      return;
-    }
-
-    const { typePlan, idParcelle } = row;
-    const formattedIdParcelle = String(idParcelle).padStart(16, "0");
-
-    const url = `http://127.0.0.1:8000/media/plans/${matricule}/${matricule}_${typePlan}_${formattedIdParcelle}.pdf`;
-    console.log("URL générée :", url);
-    window.open(url, "_blank");
+  const getPdfUrlByPlanId = (planId) => {
+    if (!data) return null;
+    const plan = data.find((plan) => plan.id === planId);
+    return plan ? plan.pdf_url : null;
   };
+
+  const handleViewPdf = (planId) => {
+    const pdfUrl = getPdfUrlByPlanId(planId);
+    if (pdfUrl) {
+      window.open(pdfUrl, "_blank");
+    } else {
+      console.error("PDF URL non trouvé pour le plan ID :", planId);
+    }
+  };
+ 
   const handleDelete = async (id) => {
     const confirmed = await new Promise((resolve) => {
       ShowAlertConf(
@@ -114,8 +105,8 @@ const Userplans = ({ userId }) => {
               renderCell: (params) => (
                 <Button
                   className="generateButton"
-                  onClick={() => handleGenerate(params.row)}
-                  disabled={!matricule} // Désactiver si matricule non prêt
+                  onClick={() =>  handleViewPdf(params.id)}
+                  // Désactiver si matricule non prêt
                 >
                   Generate
                 </Button>

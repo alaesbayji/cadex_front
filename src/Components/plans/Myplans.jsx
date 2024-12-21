@@ -16,7 +16,6 @@ const Myplans = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const userId = 0; // Remplacez ceci par l'ID de l'utilisateur actuel
-  const [matricule, setMatricule] = useState("");
 
   // Charger les plans de l'utilisateur actuel
   useEffect(() => {
@@ -30,27 +29,22 @@ const Myplans = () => {
         setLoading(false);
       }
     };
-    const fetchMatricule = async () => {
-      try {
-        const response = await api.get("http://127.0.0.1:8000/cadex/users/self/");
-        console.log("Matricule fetched:", response.data.matricule);
-        setMatricule(response.data.matricule);
-      } catch (error) {
-        console.error("Error fetching matricule:", error);
-      }
-    };
-
     fetchPlans();
-    fetchMatricule();
   }, [userId]);
-  const handleGenerate = (row) => {
-    const { typePlan, idParcelle } = row;
-    const formattedIdParcelle = String(idParcelle).padStart(16, "0");
-
-    const url = `http://127.0.0.1:8000/media/plans/${matricule}/${matricule}_${typePlan}_${formattedIdParcelle}.pdf`;
-    window.open(url, "_blank");
+  const getPdfUrlByPlanId = (planId) => {
+    if (!data) return null;
+    const plan = data.find((plan) => plan.id === planId);
+    return plan ? plan.pdf_url : null;
   };
 
+  const handleViewPdf = (planId) => {
+    const pdfUrl = getPdfUrlByPlanId(planId);
+    if (pdfUrl) {
+      window.open(pdfUrl, "_blank");
+    } else {
+      console.error("PDF URL non trouvé pour le plan ID :", planId);
+    }
+  };
 
   return (
     <div className="datatable">
@@ -72,8 +66,7 @@ const Myplans = () => {
               renderCell: (params) => (
                 <Button
                   className="generateButton"
-                  onClick={() => handleGenerate(params.row)}
-                >
+                  onClick={() =>  handleViewPdf(params.id)}                >
                   Generate
                 </Button>
               ),
