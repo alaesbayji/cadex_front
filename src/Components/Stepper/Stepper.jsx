@@ -165,9 +165,9 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';const Stepper = 
   onChange={(e) => onPlanTypeChange(e.target.value)}
 >
   <option value="null">Veuillez Selectionnez le type du Plan</option>
-  <option value="Plan A">Plan CIC</option>
-  <option value="Plan B">Amorcellement</option>
-  <option value="Plan C">Délimitation</option>
+  <option value="Plan CIC">Plan CIC</option>
+  <option value="Plan PAC">Autorisation de construire</option>
+  <option value="Plan Morcellement">Morcellement</option>
 </select>
 
         </div>
