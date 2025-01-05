@@ -192,7 +192,15 @@ body {
   outline: none;
   cursor: pointer;
 }
-
+.plan-type-selection-container input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+  outline: none;
+  cursor: pointer;
+}
 /* Style pour aligner les éléments select et input sur la même ligne si besoin */
 .plan-type-selection-row {
   display: flex;

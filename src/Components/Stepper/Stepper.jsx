@@ -18,6 +18,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';const Stepper = 
   const [planType, onPlanTypeChange] = useState(null);
   const [abortController, setAbortController] = useState(null); // Abort controller
   const [pdfUrl, setPdfUrl] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(""); // Champ de recherche
 
   // Fonction pour traiter l'upload ZIP et préparer les données
   const handlePrepareData = async (event) => {
@@ -86,12 +87,37 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';const Stepper = 
     ShowAlert("info", "Les données ont été effacées.");
   };
   // Fonction pour envoyer les données au backend
+  
+   // Fonction pour la recherche
+  const handleSearch = () => {
+    if (!geojsonData || !searchQuery.trim()) {
+      ShowAlert("error", "Veuillez importer les données et entrer un critère de recherche.");
+      return;
+    }
+
+    const matchingFeature = geojsonData.features.find(
+      (feature) =>
+        feature.properties.nicad === searchQuery ,
+      
+    );
+
+    if (matchingFeature) {
+      const bounds = L.geoJSON(matchingFeature).getBounds();
+      if (mapRef.current) {
+        mapRef.current.fitBounds(bounds);
+      }
+      setSelectedPolygon(matchingFeature);
+      ShowAlert("success", "Parcelle trouvée et centrée sur la carte.");
+    } else {
+      ShowAlert("error", "Aucune parcelle correspondante trouvée.");
+    }
+  };
   const handleSendData = async () => {
-    if (!selectedPolygon) {
+
+    if (!selectedPolygon && !searchQuery.trim()) {
       ShowAlert("error", "Veuillez sélectionner un polygone avant d'envoyer.");
       return;
     }
-  
     if (!formData) {
       ShowAlert("error", "Veuillez importer et préparer les données avant d'envoyer.");
       return;
@@ -110,7 +136,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';const Stepper = 
     try {
       formData.append("typePlan", planType);
       formData.append("idParcelle", selectedPolygon.properties.nicad);
-  
+      console.log(selectedPolygon.properties.nicad)
       const response = await axios.post(
         "http://127.0.0.1:8000/cadex/upload-fichier/",
         formData,
@@ -137,7 +163,18 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';const Stepper = 
       setAbortController(null);
     }
   };
-  
+  const clearSelectedPolygon = () => {
+    setSelectedPolygon("");
+    ShowAlert("info", "La parcelle sélectionnée a été effacée.");
+  };
+
+
+const clearSearchQuery = () => {
+  setSearchQuery(""); // Efface le champ de recherche
+      setSelectedPolygon("");
+
+  ShowAlert("info", "Le NICAD entré a été effacé.");
+};
   // Gestion du clic sur un polygone
   const handlePolygonClick = (feature) => {
     setSelectedPolygon(feature);
@@ -154,6 +191,8 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';const Stepper = 
 
   return (
     <>
+    <div className="button-group">
+
       <div className="file-selection-container">
         <h3>Importer Votre Fichier</h3>
         <input type="file" onChange={handlePrepareData} accept=".zip" />
@@ -171,8 +210,28 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';const Stepper = 
 </select>
 
         </div>
-      </div>
+        </div>
+       <div className="plan-type-selection-container">
+          <h3>Search Parcelle</h3>
+          <input 
+            type="text"
+            placeholder="Enter NICAD "
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+                <div className="button-group">
 
+          <button className="btn search-button" onClick={handleSearch}>
+            Rechercher
+          </button>
+          
+           <button className="btn clear-button" onClick={clearSearchQuery}>
+            Effacer Recherche
+          </button>
+          </div>
+        </div>
+        
+        </div>        
       <MapContainer
         center={[14.6928, -17.4467]} // Coordonnées de Dakar
         zoom={14}
@@ -218,8 +277,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';const Stepper = 
         </div>
       )}
       </MapContainer>
-
-    
+           
 
       <div className="button-group">
       <button className="btn cancel-button" onClick={handleSendData}>
@@ -230,7 +288,11 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';const Stepper = 
         </button>
         <button className="btn clear-button" onClick={handleClear}>
           Effacer
+        </button> 
+        <button className="btn clear-button" onClick={clearSelectedPolygon}>
+          Effacer Sélection
         </button>
+       
         {pdfUrl && (
     <>
       <div className="pdf-link">
@@ -243,11 +305,13 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';const Stepper = 
           <a href={`mailto:?subject=PDF Plan&body=Voici le lien du plan généré: ${pdfUrl}`} target="_blank" rel="noopener noreferrer">
           <ShareIcon /> Partager         </a>
       </div>
+    
     </>
   )}
 
       </div>
     </>
+    
   );
 };
 
