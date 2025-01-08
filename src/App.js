@@ -52,7 +52,7 @@ function App() {
               path="new"
               element={
                 <ProtectedRoute allowedRoles={['admin']}>
-                  <New title="Add New User" />
+                  <New title="Ajouter un nouvel utilisateur" />
                 </ProtectedRoute>
               }
             />
@@ -90,8 +90,8 @@ function App() {
           <Route path="profile" element={<ProtectedRoute allowedRoles={['user', 'admin']}><Profile /></ProtectedRoute>} />
           <Route path="dashboard" element={<ProtectedRoute allowedRoles={[ 'admin']}><Homes /></ProtectedRoute>} />
           <Route path="historique" element={<ProtectedRoute allowedRoles={['user', 'admin']}><UserPlans /></ProtectedRoute>} />
-          <Route path="edituser" element={<ProtectedRoute allowedRoles={['admin']}><EditUser title="Edit User" /></ProtectedRoute>} />
-          <Route path="editprofile" element={<ProtectedRoute allowedRoles={['user', 'admin']}><EditProfile title="Edit Profile" /></ProtectedRoute>} />
+          <Route path="edituser" element={<ProtectedRoute allowedRoles={['admin']}><EditUser title="Modifier cet utilisateur" /></ProtectedRoute>} />
+          <Route path="editprofile" element={<ProtectedRoute allowedRoles={['user', 'admin']}><EditProfile title="Modifier Votre Profile" /></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </div>

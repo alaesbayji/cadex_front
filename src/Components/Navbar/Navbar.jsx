@@ -71,8 +71,9 @@ const Navbar = () => {
                 <hr />
                 <li className="profile-dropdown-list-item" onClick={handleLogout}>
                   <a href="/login">
-                    Log out
-                  </a>
+                  Déconnexion
+
+</a>
                 </li>
               </ul>
             )}

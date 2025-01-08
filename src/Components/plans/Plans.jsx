@@ -7,13 +7,13 @@ import ShowAlert from "../../Components/ShowAlert";
 import ShowAlertConf from "../../Components/ShowAlertConf";
 
 const planColumns = [
-  { field: "id", headerName: "Plan ID", width: 200 },
-  { field: "matricule", headerName: "matricule", width: 250 },
+  { field: "id", headerName: "ID du plan", width: 200 },
+  { field: "matricule", headerName: "Matricule", width: 250 },
   { 
     field: "idParcelle", 
     headerName: "Nicad", 
-    width: 150 },  { field: "dateCreation", headerName: "Date", width: 130 }, // Utilisation de 'dateCreation' pour la date
-  { field: "typePlan", headerName: "Type Plan", width: 120 }, // Utilisation de 'typePlan' à la place de 'id_couche'
+    width: 150 },  { field: "Date", headerName: "Date", width: 130 }, // Utilisation de 'dateCreation' pour la date
+  { field: "typePlan", headerName: "Type de plan", width: 120 }, // Utilisation de 'typePlan' à la place de 'id_couche'
 
 ];
 
@@ -45,7 +45,7 @@ const handleViewPdf = (planId) => {
   if (pdfUrl) {
     window.open(pdfUrl, "_blank");
   } else {
-    console.error("PDF URL non trouvé pour le plan ID :", planId);
+    console.error(" PDF non trouvé pour le plan ID :", planId);
   }
 };
   // Supprimer un plan
@@ -53,10 +53,10 @@ const handleViewPdf = (planId) => {
     const confirmed = await new Promise((resolve) => {
       ShowAlertConf(
         "warning",
-        "Are you sure you want to delete this Plan?",
+        "Êtes-vous sûr de vouloir supprimer ce plan ?",
         {
-          confirmButtonText: "Yes, delete",
-          cancelButtonText: "Cancel",
+          confirmButtonText: "Oui, supprimer",
+          cancelButtonText: "Annuler",
           showCancelButton: true,
           onConfirm: () => resolve(true),
           onCancel: () => resolve(false),
@@ -68,7 +68,7 @@ const handleViewPdf = (planId) => {
     try {
       await api.delete(`http://127.0.0.1:8000/cadex/plans/${id}/delete`);
       setData((prevData) => prevData.filter((item) => item.id !== id));
-      ShowAlert("success", "Plan deleted successfully!");
+      ShowAlert("success", "Plan supprimé avec succès !");
 
     } catch (error) {
       console.error("Error deleting data:", error);
@@ -80,7 +80,7 @@ const handleViewPdf = (planId) => {
   return (
     <div className="datatable">
       <div className="datatableTitle" style={{ color: "#b69d3f" }}>
-        Plan Management
+      Gestion des plans
       </div>
       <DataGrid
         className="datagrid"
@@ -89,7 +89,7 @@ const handleViewPdf = (planId) => {
           ...planColumns,
           {
             field: "delete",
-            headerName: "Delete",
+            headerName: "Supprimer",
             width: 100,
             renderCell: (params) => (
               <Button
@@ -109,7 +109,7 @@ const handleViewPdf = (planId) => {
                 className="generateButton"
                 onClick={() =>  handleViewPdf(params.id)}                
               >
-                Generate
+                Générer
               </Button>
             ),
           },

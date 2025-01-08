@@ -48,8 +48,8 @@ const Single = () => {
         <Navbar />
         <div className="top">
           <div className="left">
-          <Button className="editButton" onClick={() => handleEdit(userDetails.id)} >Edit</Button>
-          <h1 className="title">Information</h1>
+          <Button className="editButton" onClick={() => handleEdit(userDetails.id)} >Modifier</Button>
+          <h1 className="title">Informations</h1>
             <div className="item">
             <img
   src={`data:image/jpeg;base64,${userDetails.profile_photo}`}
@@ -68,7 +68,7 @@ const Single = () => {
                   <span className="itemValue">{userDetails.email}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Phone:</span>
+                  <span className="itemKey">Téléphone:</span>
                   <span className="itemValue">{userDetails.telephone}</span>
                 </div>
                 <div className="detailItem">
@@ -84,18 +84,19 @@ const Single = () => {
                   <span className="itemValue">{userDetails.bureau}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Role:</span>
+                  <span className="itemKey">Rôle:</span>
                   <span className="itemValue">{userDetails.role}</span>
                 </div>
               </div>
             </div>
           </div>
           <div className="right">
-          <UserChart aspect={2 / 1} title="User Plans Chart" userId={userDetails.id} />
+          <UserChart aspect={2 / 1} title="Plans de l'utilisateur (6 derniers mois)" userId={userDetails.id} />
           </div>
         </div>
         <div className="bottom">
-          <h1 className="title">Last Plans</h1>
+          <h1 className="title">Derniers plans
+          </h1>
           <UserPlans userId={userDetails.id} />
           </div>
       </div>

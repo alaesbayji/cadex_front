@@ -42,7 +42,7 @@ const Login = () => {
         <div className="top">
         <img src={logo} alt="logo"></img>
         </div>
-        <span className="logo">Sign in to Account</span>
+        <span className="logo" style={{marginTop:"10px"}}>Se connecter à mon compte        </span>
 
         <form className="sign-in-form" onSubmit={handleLogin}>
           <input
@@ -61,9 +61,10 @@ const Login = () => {
           />
           <div className="remember-forgot">
             <label>
-              <input type="checkbox" /> Remember me
+              <input type="checkbox" /> Se souvenir de moi
             </label>
-            <a href="/login">Forgot Password?</a>
+            <a href="/login">Mot de passe oublié ?
+            </a>
           </div>
           <button type="submit" className="auth-button">Sign In</button>
           {error && <p className="error-message">{error}</p>}

@@ -5,10 +5,10 @@ import { useState, useEffect } from "react";
 import api from "../../Api"; // Import the Axios instance
 
 const planColumns = [
-  { field: "id", headerName: "Plan ID", width: 200 },
+  { field: "id", headerName: "ID du plan", width: 200 },
   { field: "idParcelle", headerName: "Nicad", width: 150 }, // Utilisation de 'idParcelle' à la place de 'idparcelle'
   { field: "dateCreation", headerName: "Date", width: 130 }, // Utilisation de 'dateCreation' pour la date
-  { field: "typePlan", headerName: "Type Plan", width: 120 }, // Utilisation de 'typePlan' à la place de 'id_couche'
+  { field: "typePlan", headerName: "Type de Plan", width: 120 }, // Utilisation de 'typePlan' à la place de 'id_couche'
 
 ];
 
@@ -49,10 +49,10 @@ const Myplans = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle" style={{ color: "#b69d3f" }}>
-        Historique Plans
+        Historique des Plans
       </div>
       {loading ? (
-        <div>Loading...</div>
+        <div>En cours...</div>
       ) : (
         <DataGrid
           className="datagrid"
@@ -67,7 +67,7 @@ const Myplans = () => {
                 <Button
                   className="generateButton"
                   onClick={() =>  handleViewPdf(params.id)}                >
-                  Generate
+                  Générer
                 </Button>
               ),
             },

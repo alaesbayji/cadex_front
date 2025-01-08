@@ -194,28 +194,28 @@ const clearSearchQuery = () => {
     <div className="button-group">
 
       <div className="file-selection-container">
-        <h3>Importer Votre Fichier</h3>
+        <h3>Importer votre fichier</h3>
         <input type="file" onChange={handlePrepareData} accept=".zip" />
 
         <div className="plan-type-selection-container">
-          <h3>Veuillez Selectionnez le type du Plan</h3>
+          <h3>Veuillez sélectionner le type de plan</h3>
           <select
   value={planType}
   onChange={(e) => onPlanTypeChange(e.target.value)}
 >
-  <option value="null">Veuillez Selectionnez le type du Plan</option>
+  <option value="null">Veuillez sélectionner le type de plan</option>
   <option value="Plan CIC">Plan CIC</option>
-  <option value="Plan PAC">Autorisation de construire</option>
-  <option value="Plan Morcellement">Morcellement</option>
+  <option value="Plan PAC">Plan Autorisation de construire</option>
+  <option value="Plan Morcellement">Plan Morcellement</option>
 </select>
 
         </div>
         </div>
        <div className="plan-type-selection-container">
-          <h3>Search Parcelle</h3>
+          <h3>Rechercher parcelle</h3>
           <input 
             type="text"
-            placeholder="Enter NICAD "
+            placeholder="Entrer NICAD "
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -226,7 +226,7 @@ const clearSearchQuery = () => {
           </button>
           
            <button className="btn clear-button" onClick={clearSearchQuery}>
-            Effacer Recherche
+            Effacer la Recherche
           </button>
           </div>
         </div>
@@ -269,7 +269,7 @@ const clearSearchQuery = () => {
         )}
           {loading && (
         <div className="loading-overlay" >
-                    Le Plan est entrain de generation ...<br></br>
+                    Le Plan est entrain de géneration ...<br></br>
 
           <div className="loading-spinner">
           </div>
@@ -281,7 +281,7 @@ const clearSearchQuery = () => {
 
       <div className="button-group">
       <button className="btn cancel-button" onClick={handleSendData}>
-          Generer
+        Générer
         </button>
         <button className="btn cancel-button" onClick={handleCancel}>
           Annuler

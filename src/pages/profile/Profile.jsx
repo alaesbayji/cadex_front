@@ -57,8 +57,8 @@ const Profile = () => {
         <Navbar />
         <div className="top">
           <div className="left">
-            <Button className="editButton"  onClick={() => handleEdit()}>Edit</Button>
-            <h1 className="title">Information</h1>
+            <Button className="editButton"  onClick={() => handleEdit()}>Modifier</Button>
+            <h1 className="title">Informations</h1>
             <div className="item">
               <img src={`data:image/jpeg;base64,${userData.profile_photo}`} alt="" className="itemImg" />
               <div className="details">
@@ -72,7 +72,7 @@ const Profile = () => {
                   <span className="itemValue">{userData.email}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Phone:</span>
+                  <span className="itemKey">Téléphone:</span>
                   <span className="itemValue">{userData.telephone}</span>
                 </div>
                 <div className="detailItem">
@@ -88,18 +88,19 @@ const Profile = () => {
                   <span className="itemValue">{userData.bureau}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Role:</span>
+                  <span className="itemKey">Rôle:</span>
                   <span className="itemValue">{userData.role}</span>
                 </div>
               </div>
             </div>
           </div>
           <div className="right">
-            <MaChart aspect={3 / 1} title="User Plans (Last 6 Months)" />
+            <MaChart aspect={3 / 1} title="Plans de l'utilisateur (6 derniers mois)" />
           </div>
         </div>
         <div className="bottom">
-          <h1 className="title">Last Plans</h1>
+          <h1 className="title">Derniers plans
+          </h1>
           <Myplans /> {/* Affiche les plans associés à l'utilisateur */}
         </div>
       </div>

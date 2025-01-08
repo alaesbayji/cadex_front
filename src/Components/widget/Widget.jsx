@@ -35,7 +35,7 @@ const Widget = ({ type }) => {
         setData({
           title: 'Utilisateurs',
           isMoney: false,
-          link: 'see all users',
+          link: 'Voir tous les utilisateurs',
           icon: <PersonOutlineOutlinedIcon className='icon' style={{
             color: 'crimson',
             backgroundColor: 'rgba(255,0,0,0.2)',
@@ -46,7 +46,7 @@ const Widget = ({ type }) => {
         setData({
           title: 'Plans',
           isMoney: false,
-          link: 'view all plans',
+          link: 'Voir tous les plans',
           icon: <BackupTableOutlinedIcon className='icon' style={{
             color: 'goldenrod',
             backgroundColor: 'rgba(218,165,32,0.2)',

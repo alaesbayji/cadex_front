@@ -34,10 +34,11 @@ const Datatable = () => {
     const confirmed = await new Promise((resolve) => {
       ShowAlertConf(
         "warning",
-        "Are you sure you want to delete this user?",
+   "Êtes-vous sûr de vouloir supprimer cet utilisateur ?"
+,
         {
-          confirmButtonText: "Yes, delete",
-          cancelButtonText: "Cancel",
+          confirmButtonText: "Oui, Supprimer",
+          cancelButtonText: "Annuler",
           showCancelButton: true,
           onConfirm: () => resolve(true),
           onCancel: () => resolve(false),
@@ -53,7 +54,7 @@ const Datatable = () => {
   
       // Mise à jour de l'état après suppression
       setData(data.filter((item) => item.id !== userData.id));
-      ShowAlert("success", "User deleted successfully!");
+      ShowAlert("success", "Utilisateur supprimé avec succès !");
     } catch (error) {
       console.error("Error deleting data:", error.response?.data || error.message);
       ShowAlert("error", error.response?.data?.detail || "An error occurred while deleting the user.");
@@ -75,15 +76,15 @@ const Datatable = () => {
 
   const userColumns = [
     { field: 'matricule', headerName: 'Matricule', width: 100 },
-    { field: 'username', headerName: 'Username', width: 150 },
+    { field: 'username', headerName: "Nom d'utilisateur", width: 150 },
     { field: 'email', headerName: 'Email', width: 230 },
-    { field: 'telephone', headerName: 'Phone', width: 150 },
+    { field: 'telephone', headerName: 'Téléphone', width: 150 },
     { field: 'fonction', headerName: 'Fonction', width: 100 },
     { field: 'direction', headerName: 'Direction', width: 100 },
     { field: 'bureau', headerName: 'Bureau', width: 100 },
     {
       field: 'role',
-      headerName: 'Role',
+      headerName: 'Rôle',
       width: 100,
       renderCell: (params) => {
         return (
@@ -107,13 +108,13 @@ const Datatable = () => {
               className="viewButton"
               onClick={() => handleView(params.row)} // Call handleView instead of Link
             >
-              View
+              Consulter
             </div>
             <div
               className="deleteButton"
               onClick={() => handleDelete(params.row)}
             >
-              Delete
+              Supprimer
             </div>
           </div>
         );
@@ -124,9 +125,9 @@ const Datatable = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle" style={{ color: '#b69d3f' }}>
-        Users Management
+      Gestion des utilisateurs
         <Link to="/users/new" className="link">
-          Add New User
+        Ajouter un nouvel utilisateur
         </Link>
       </div>
       <DataGrid

@@ -99,7 +99,8 @@ const Sidebar = () => {
               <Link to="/" style={{ textDecoration: "none" }}>
                 <li>
                   <PictureAsPdfIcon className="icon" />
-                  <span>Generer Un plan</span>
+                  <span>Générer un plan
+</span>
                 </li>
               </Link>
               <Link to="/historique" style={{ textDecoration: "none" }}>
@@ -126,7 +127,9 @@ const Sidebar = () => {
               <Link to="/" style={{ textDecoration: "none" }}>
                 <li>
                   <PictureAsPdfIcon className="icon" />
-                  <span>Generer Un plan</span>
+                  <span>Générer un plan
+
+</span>
                 </li>
               </Link>
               <Link to="/historique" style={{ textDecoration: "none" }}>
@@ -148,7 +151,9 @@ const Sidebar = () => {
           {/* Option pour tout le monde : Déconnexion */}
           <li onClick={handleLogout} style={{ cursor: 'pointer' }}>
             <LogoutIcon className="icon" />
-            <span>Deconnexion</span>
+            <span>Déconnexion
+
+</span>
           </li>
         </ul>
       </div>

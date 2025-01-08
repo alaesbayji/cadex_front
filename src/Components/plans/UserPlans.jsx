@@ -6,10 +6,10 @@ import api from "../../Api"; // Import the Axios instance
 import ShowAlert from "../../Components/ShowAlert";
 import ShowAlertConf from "../../Components/ShowAlertConf";
 const planColumns = [
-  { field: "id", headerName: "Plan ID", width: 200 },
+  { field: "id", headerName: "ID du plan", width: 200 },
   { field: "idParcelle", headerName: "Nicad", width: 150 },
   { field: "dateCreation", headerName: "Date", width: 130 },
-  { field: "typePlan", headerName: "Type Plan", width: 120 },
+  { field: "typePlan", headerName: "Type de Plan", width: 120 },
 ];
 
 const Userplans = ({ userId }) => {
@@ -62,10 +62,10 @@ const Userplans = ({ userId }) => {
     const confirmed = await new Promise((resolve) => {
       ShowAlertConf(
         "warning",
-        "Are you sure you want to delete this Plan?",
+        "Êtes-vous sûr de vouloir supprimer ce plan ?",
         {
-          confirmButtonText: "Yes, delete",
-          cancelButtonText: "Cancel",
+          confirmButtonText: "Oui, supprimer",
+          cancelButtonText: "Annuler",
           showCancelButton: true,
           onConfirm: () => resolve(true),
           onCancel: () => resolve(false),
@@ -77,7 +77,7 @@ const Userplans = ({ userId }) => {
     try {
       await api.delete(`http://127.0.0.1:8000/cadex/plans/${id}/delete`);
       setData((prevData) => prevData.filter((item) => item.id !== id));
-      ShowAlert("success", "Plan deleted successfully!");
+      ShowAlert("success", "Plan supprimé avec succès !");
 
     } catch (error) {
       console.error("Error deleting data:", error);
@@ -88,7 +88,7 @@ const Userplans = ({ userId }) => {
   return (
     <div className="datatable">
       <div className="datatableTitle" style={{ color: "#b69d3f" }}>
-        Historique Plans
+        Historique des Plans 
       </div>
       {loading ? (
         <div>Chargement...</div>
@@ -100,7 +100,7 @@ const Userplans = ({ userId }) => {
             ...planColumns,
             {
               field: "generate",
-              headerName: "Generate",
+              headerName: "Action",
               width: 150,
               renderCell: (params) => (
                 <Button
@@ -108,13 +108,13 @@ const Userplans = ({ userId }) => {
                   onClick={() =>  handleViewPdf(params.id)}
                   // Désactiver si matricule non prêt
                 >
-                  Generate
+                  Générer
                 </Button>
               ),
             },
             {
               field: "delete",
-              headerName: "Delete",
+              headerName: "Supprimer",
               width: 100,
               renderCell: (params) => (
                 <Button
