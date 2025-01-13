@@ -95,7 +95,7 @@ const Sidebar = () => {
                 </li>
               </Link>
               <>
-              <p className="title">User</p>
+              <p className="title">Utilisateur</p>
               <Link to="/" style={{ textDecoration: "none" }}>
                 <li>
                   <PictureAsPdfIcon className="icon" />
@@ -123,7 +123,7 @@ const Sidebar = () => {
           {/* Options pour les utilisateurs */}
           {userRole === 'user' && (
             <>
-              <p className="title">User</p>
+              <p className="title">Utilisateur</p>
               <Link to="/" style={{ textDecoration: "none" }}>
                 <li>
                   <PictureAsPdfIcon className="icon" />
